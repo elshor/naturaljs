@@ -1,17 +1,17 @@
 naturaljs
 ======================================================
-naturaljs is a natural language programming addition to javascript. Our goal is to provide a programming language as close as possible to natural language. Our method will be gradually adding natural language features to javascript code and providing a parser that will identify the natural language islands in javascript code and transpile them into javascript. Unlike typical programming language parsers that are deterministic and only have a single possible parse, the natural language parser is a non-deterministic, best-effort parser, trying to provide a transpiled code closest as possible to the programmers intentions (read [here][Ambigiuty] about handling ambigiuty)
+Naturaljs is a natural language programming addition to javascript. Our goal is to provide a programming language as close as possible to natural language. Our method will be gradually adding natural language features to javascript code and providing a parser that will identify the natural language islands in javascript code and transpile them into javascript. Unlike typical programming language parsers that are deterministic and only have a single possible parse, the natural language parser is a non-deterministic, best-effort parser, trying to provide a transpiled code closest as possible to the programmers intentions (read [here][Ambiguity] about handling ambiguity)
 
 # Status
 At this stage, naturaljs is a proposal. Before we implement it, we want to make sure the project is of interest to other programmers. Implementation will start once this GitHub project reaches **100 stars**. If you see merit in natural language programming and in this project, **please star this project**.
 
-# Initial Natural Features
+# Initial Naturaljs Features
 Here are the initial natural language features we intend to implement:
 
 ## Inline Argument Notation
 The classic c style notation is function style like this:
 
-```
+```javascript
 strlen(str);
 getElementById('button1').focus();
 Node2.parentElement.insertBefore(Node1,Node2);
@@ -19,7 +19,7 @@ Node2.parentElement.insertBefore(Node1,Node2);
 
 It borrows from the mathematical notation of function. It is not the way most humans communicate. In naturaljs, expression of the same functionality would look like this:
 
-```
+```javascript
 length of str
 focus on element "button1"
 insert Node1 before Node2
@@ -27,18 +27,18 @@ insert Node1 before Node2
 Notice that arguments are inlined in the flow of the expression.
 
 Naturaljs functions  are defined like this:
-```
+```javascript
 nfunction length of Str {return Str.length;}
 nfunction show X {console.log(X);}
 ```
 The definition starts with the keyword `nfunction`, followed by a sequence of lowercase expression tokens and capitalized argument names.
 
 Calling the function would look like this:
-```
+```javascript
 show length of "hello world"//11
 ```
 The parser will transpile it to the following javascript code:
-```
+```javascript
 show_$(length_of_$("hello world"));
 ```
 Inlined arguments can be identifiers, natural expressions or any javascript expression or naturaljs expressions enclosed in parentheses.
@@ -48,7 +48,7 @@ As you can see, the parsing of the expression can be ambiguous. However, it is n
 ## Referencing Context
 In natural language, expressions are evaluated in the context of the text. It is common in programming to pass context arguments, that provide the context of the function call. In object-oriented programming, the object is the context of the member function. However, in natural language, context is assumed and not stated explicitly. Defining naturaljs functions with context would look like this:
 
-```
+```javascript
 nfunction move to next token CONTEXT the text, the current position,the current token{
     the current token = the text.substr(the current position).match(/s*[\S]+);
     if(the current token !== null){
@@ -71,7 +71,7 @@ Context arguments must start with the keyword `the`. They are called by referenc
 
 ## Managing asynchronous calls
 ECMAScript 2017 made async programming a lot easier with `await`/`async`. We would expect natural language programming to hide the technical details of handling asynchronicity. When a function is defined as `async`, arguments and function calls within the function are preceded with the `await` keyword.
-```
+```javascript
 aysnc nfunction show X{
     await console.log(await x);
 }
@@ -80,23 +80,23 @@ of course, a smart parser would recognize that `console.log` is not an asynchron
 
 ## Using Natural Functions From Other Modules
 Using natural functions that are defined in other modules, requires the following syntax:
-```
+```javascript
 use 'path/to/other/module';
 console.log(this function is defined in another module);
-
+```
 # Future Features
 Here is a list of next features to implement:
 ## Argument Phrases
 Typically actions may have many optional arguments. It is impossible to define a function for each permutation and the natural syntax does not allow for null values. We suggest defining optional argument phrases that are optional parts of the natural function call. Each argument phrase is preceded by a comma.
-```
+```javascript
 nfunction create a meeting, with Person, at Time, for Duration, on Date, in Location{...}
 //calling the natural function
 create a meeting with "John Doe" at "5 PM" for "2 hours" in "my office"
 create a meeting with "John Doe" at "4 pm"//not all argument phrases are present
-
+```
 ## Handling types
 Types are an important part of how people think of concepts. Moving a cursor on the screen is a different from moving a spreadsheet row. We would expect natural functions to be typed. The syntax would probably look something like this:
-```
+```javascript
 nfunction move [a row Row] to [a row number Y]{...}
 ```
 
@@ -109,7 +109,7 @@ Provide a more natural way of managing execution flow, if ...then, while, for et
 As any programmer knows, computer code must be unambiguous. It should have only one interpretation. This contradicts the notion of natural language parsing which is inherently ambiguous. There are several ways to handle this issue.
 
 First, it is possible to write unambiguous code using parentheses. The unambiguous version of the above example of calling functions would look like this:
-```
+```javascript
 show (length of "hello world");
 
 ```
