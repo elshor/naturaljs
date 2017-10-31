@@ -1,0 +1,14 @@
+{
+  "name": "naturaljs",
+  "version": "0.1.1",
+  "description": "add natural language programming capabilities to javascript",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elshor/naturaljs"
+  },
+  "author": "Elchanan Shor <elshor@gmail.com>",
+  "license": "MPL-2.0"
+}
