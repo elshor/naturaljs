@@ -72,7 +72,7 @@ Context arguments must start with the keyword `the`. They are called by referenc
 ## Managing asynchronous calls
 ECMAScript 2017 made async programming a lot easier with `await`/`async`. We would expect natural language programming to hide the technical details of handling asynchronicity. When a function is defined as `async`, the traspiler preceded arguments and function calls within the function with the `await` keyword.
 ```javascript
-aysnc function show X{
+aysnc nfunction show X{
     await console.log(await x);
 }
 ```
@@ -82,7 +82,6 @@ of course, a smart parser would recognize that `console.log` is not an asynchron
 Using natural functions that are defined in other modules, requires the following syntax:
 ```javascript
 use 'path/to/other/module';
-console.log(this function is defined in another module);
 ```
 # Future Features
 Here is a list of the next-in-line features to implement:
