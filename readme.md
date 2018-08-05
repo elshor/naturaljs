@@ -135,5 +135,5 @@ Another aspect of natural language programming is hiding the technical design de
 - Easier to communicate to non-programmers - with current programming languages there is an iron wall between programmer's world and user world (users, product managers, managers). Having near natural language programming allows the user side understand the logic implemented in programmers code.
 
 # Contact Us
-We would love to receive your feedback. Send us an email to elshor@gmail.com or DM us at @naturaljslang. For updates, follow the twitter account @naturaljslang. If you want to raise an issue that may open a discussion, send us an issue report on the GitHub project. Once again, if you see merit in this project, please star it. Once the project reaches **100 starts**, we will start implementing it.
+We would love to receive your feedback. Send us an email to elshor@gmail.com or DM us at @elshor. For updates, follow the twitter account @naturaljslang. If you want to raise an issue that may open a discussion, send us an issue report on the GitHub project. Once again, if you see merit in this project, please star it. Once the project reaches **100 starts**, we will start implementing it.
 
