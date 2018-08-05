@@ -28,10 +28,10 @@ Notice that arguments are inlined in the flow of the expression.
 
 Naturaljs functions  are defined like this:
 ```javascript
-nfunction length of Str {return Str.length;}
-nfunction show X {console.log(X);}
+DEFINE length of Str AS return Str.length; END
+DEFINE show X AS console.log(X); END
 ```
-The definition starts with the keyword `nfunction`, followed by a sequence of lowercase expression tokens and capitalized argument names.
+The definition starts with the keyword `DEFINE`, followed by a sequence of lowercase expression tokens and capitalized argument names.
 
 Calling the function would look like this:
 ```javascript
@@ -41,7 +41,7 @@ The parser will transpile it to the following javascript code:
 ```javascript
 show_$(length_of_$("hello world"));
 ```
-When writing expressions using the nfunction definition, inlined arguments can be identifiers, naturaljs expressions or any javascript expression or naturaljs expressions enclosed in parentheses. It is the responsibility of the parser to identify naturaljs expressions used as arguments.
+When writing expressions using the natural definition, inlined arguments can be identifiers, naturaljs expressions or any javascript expression or naturaljs expressions enclosed in parentheses. It is the responsibility of the parser to identify naturaljs expressions used as arguments.
 
 As you can see, the parsing of the expression can be ambiguous. However, it is not too complicated to create a parser that will generate the above code.
 
@@ -49,12 +49,12 @@ As you can see, the parsing of the expression can be ambiguous. However, it is n
 In natural language, expressions are evaluated in the context of the text. It is common in programming to pass context arguments, that provide the context of the function call. In object-oriented programming, the object is the context of the member function. However, in natural language, context is assumed and not stated explicitly. Defining naturaljs functions with context would look like this:
 
 ```javascript
-nfunction move to next token CONTEXT the text, the current position,the current token{
+DEFINE move to next token CONTEXT the text, the current position,the current token AS
     the current token = the text.substr(the current position).match(/s*[\S]+);
     if(the current token !== null){
         move the current position by length of the token;
     }
-}
+END
 //calling the function
 the text = "hello world";
 the current position = 0;
@@ -72,9 +72,9 @@ Context arguments must start with the keyword `the`. They are called by referenc
 ## Managing asynchronous calls
 ECMAScript 2017 made async programming a lot easier with `await`/`async`. We would expect natural language programming to hide the technical details of handling asynchronicity. When a function is defined as `async`, the traspiler preceded arguments and function calls within the function with the `await` keyword.
 ```javascript
-aysnc nfunction show X{
+DEFINE ASYNC show X AS
     await console.log(await x);
-}
+END
 ```
 of course, a smart parser would recognize that `console.log` is not an asynchronous function and will *not* precede `console.log`  with `await`
 
@@ -97,7 +97,7 @@ create a meeting with "John Doe" at "4 pm"//not all argument phrases are present
 ## Handling types
 Types are an important part of how people think of concepts. Moving a cursor on the screen is different from moving a spreadsheet row. We would expect natural functions to be typed. The syntax of typed arguments is as follows:
 ```javascript
-nfunction move [a row Row] to [a row number Y]{...}
+DEFINE move [a row Row] to [a row number Y] AS ... END
 ```
 It is yet to be determined how objects are typed (such as using javscript classes).
 
